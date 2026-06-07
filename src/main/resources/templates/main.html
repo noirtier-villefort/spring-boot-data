@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="row mt-3 ms-2 me-2">
+        <div class="col-sm-6">
+            <h1> User JSON Creator </h1>
+            <div class="input-group mb-3">
+                <input name="username" class="form-control" placeholder="Username"/>
+            </div>
+            <div class="input-group mb-3">
+                <input name="email" class="form-control" placeholder="Email"/>
+            </div>
+            <div class="btn-group md-3">
+                <form>
+                    <button class="btn btn-primary" type="button" onclick="saveUser()">Send and save</button>
+                </form>
+                <form method="get">
+                    <button class="btn btn-secondary" type="button" onclick="createJson()">Generate JSON</button>
+                </form>
+
+                <script>
+                    function saveUser(){
+                        const user = {
+                            name: document.getElementsByName("username")[0].value
+                            //email: document.getElementByName="email".valueOf()
+                        };
+                        fetch("users/add",{
+                            method: "POST",
+                            headers:{"Content-Type":"application/json"},
+                            body: JSON.stringify(user)
+                        })
+                    }
+                    function createJson(){
+                        const user = {
+                            name: document.getElementsByName("username")[0].value
+                        };
+                        document.getElementsByName("jsontextarea")[0].value = JSON.stringify(user)
+                    }
+                </script>
+            </div>
+
+        </div>
+
+        <div class="col">
+           <textarea name="jsontextarea"
+                     class="form-control"
+                     placeholder="JSON Output"
+                     rows="10"
+                     cols="10"
+           ></textarea>
+        </div>
+    </div>
+</body>
+</html>
