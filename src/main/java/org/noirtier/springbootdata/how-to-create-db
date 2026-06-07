@@ -1,3 +1,0 @@
-CREATE TABLE users(id INTEGER PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
-where do i specify user and pwd?
-include it into readme
