@@ -18,7 +18,9 @@ public class UserService {
     }
 
     public User save(User user){
-        return userRepository.save(user);
+        if(user!=null)
+            return userRepository.save(user);
+        return null; // todo: throw exception or bad response?
     }
 
     public List<User> getAllUsers(){

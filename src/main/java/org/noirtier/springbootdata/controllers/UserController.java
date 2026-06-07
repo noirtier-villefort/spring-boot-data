@@ -29,9 +29,7 @@ public class UserController {
 
     @PostMapping("/add")
     public User addUser(@RequestBody User user) {
-        if(user!=null) return userService.save(user);
-
-        return null;
+        return userService.save(user);
     }
 
     @DeleteMapping("/delete/{id}")

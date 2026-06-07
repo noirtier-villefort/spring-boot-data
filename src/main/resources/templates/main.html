@@ -14,6 +14,9 @@
             <div class="input-group mb-3">
                 <input name="email" class="form-control" placeholder="Email"/>
             </div>
+            <div class="input-group mb-3">
+                <input name="age" class="form-control" placeholder="Age" type="number"/>
+            </div>
             <div class="btn-group md-3">
                 <form>
                     <button class="btn btn-primary" type="button" onclick="saveUser()">Send and save</button>
@@ -25,20 +28,32 @@
                 <script>
                     function saveUser(){
                         const user = {
-                            name: document.getElementsByName("username")[0].value
-                            //email: document.getElementByName="email".valueOf()
+                            name: document.getElementsByName("username")[0].value,
+                            email: document.getElementsByName("email")[0].value,
+                            age: document.getElementsByName("age")[0].value
                         };
                         fetch("users/add",{
                             method: "POST",
                             headers:{"Content-Type":"application/json"},
                             body: JSON.stringify(user)
-                        })
+                        });
+                        document.getElementsByName("json-pre-tag")[0].value = "";
+
                     }
                     function createJson(){
                         const user = {
-                            name: document.getElementsByName("username")[0].value
+                            name: document.getElementsByName("username")[0].value,
+                            email: document.getElementsByName("email")[0].value,
+                            age: document.getElementsByName("age")[0].value
                         };
                         document.getElementsByName("jsontextarea")[0].value = JSON.stringify(user)
+                    }
+                    function getAllUsers(){
+                        fetch("users/all").then(response => { return response.json()}) // Parse JSON (returns Promise)
+                            // response.json() is an asynchronous operation - it takes time to parse the JSON from the response body.
+                            .then(data => {
+                                document.getElementById("json-pre-tag").textContent = JSON.stringify(data, null, 2);
+                            });
                     }
                 </script>
             </div>
@@ -53,6 +68,17 @@
                      cols="10"
            ></textarea>
         </div>
+
+        <div class="row mt-3">
+            <form>
+                <button class="btn btn-primary" type="button" onclick="getAllUsers()">Show all users</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div id="json-div" class="row mt-2 ms-2 me-3 border p-3">
+        <pre id="json-pre-tag"></pre>
     </div>
 </body>
 </html>
